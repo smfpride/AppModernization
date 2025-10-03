@@ -2,10 +2,10 @@
 
 **Date:** October 3, 2025
 **Time:** Story 2 Implementation Request
-**User Role:** Developer
+**User Role:** DevOps
 
 ## Original Request
-Hi Dev, it looks like user story 2 is a developer story, please review and implement. 
+Hi DevOps, it looks like the first story is a great one for you. Can you please review the user story 1 and implement. Thank you. 
 
 ## Context
 - User Story: Story 2 - Externalize Configuration for Cloud Deployment

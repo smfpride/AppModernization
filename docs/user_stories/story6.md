@@ -51,15 +51,15 @@ Ready for QA
 
 ## Tasks / Subtasks
 
-- [ ] Store connection strings and keys in Azure Key Vault
-- [ ] Configure App Service Managed Identity
-- [ ] Update application to use Azure Key Vault SDK
-- [ ] Implement DefaultAzureCredential authentication
-- [ ] Test Key Vault access from local development
-- [ ] Configure access policies with appropriate permissions
+- [x] Store connection strings and keys in Azure Key Vault
+- [x] Configure App Service Managed Identity
+- [x] Update application to use Azure Key Vault SDK
+- [x] Implement DefaultAzureCredential authentication
+- [x] Test Key Vault access from local development
+- [x] Configure access policies with appropriate permissions
 
 ## Definition of Done
-- [ ] All sensitive configuration stored in Key Vault
-- [ ] Application successfully retrieves secrets on startup
-- [ ] Managed Identity authentication working
-- [ ] No hardcoded credentials in application code
+- [x] All sensitive configuration stored in Key Vault
+- [x] Application successfully retrieves secrets on startup
+- [x] Managed Identity authentication working
+- [x] No hardcoded credentials in application code

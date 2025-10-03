@@ -1,0 +1,125 @@
+{
+  "version": 2,
+  "dgSpecHash": "nEYObBPjhmg=",
+  "success": true,
+  "projectFilePath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\stevenpride\\.nuget\\packages\\antlr\\3.5.0.2\\antlr.3.5.0.2.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\autofac\\6.1.0\\autofac.6.1.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\autofac.mvc5\\4.0.2\\autofac.mvc5.4.0.2.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\autofac.webapi2\\6.0.1\\autofac.webapi2.6.0.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\bootstrap\\4.3.1\\bootstrap.4.3.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\entityframework\\6.2.0\\entityframework.6.2.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\jquery\\3.5.0\\jquery.3.5.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\jquery.validation\\1.19.4\\jquery.validation.1.19.4.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\log4net\\2.0.10\\log4net.2.0.10.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.applicationinsights\\2.9.1\\microsoft.applicationinsights.2.9.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.applicationinsights.agent.intercept\\2.4.0\\microsoft.applicationinsights.agent.intercept.2.4.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.applicationinsights.dependencycollector\\2.9.1\\microsoft.applicationinsights.dependencycollector.2.9.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.applicationinsights.perfcountercollector\\2.9.1\\microsoft.applicationinsights.perfcountercollector.2.9.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.applicationinsights.web\\2.9.1\\microsoft.applicationinsights.web.2.9.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.applicationinsights.windowsserver\\2.9.1\\microsoft.applicationinsights.windowsserver.2.9.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.applicationinsights.windowsserver.telemetrychannel\\2.9.1\\microsoft.applicationinsights.windowsserver.telemetrychannel.2.9.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.mvc\\5.2.7\\microsoft.aspnet.mvc.5.2.7.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.7\\microsoft.aspnet.razor.3.2.7.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.sessionstate.sessionstatemodule\\1.1.0\\microsoft.aspnet.sessionstate.sessionstatemodule.1.1.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.telemetrycorrelation\\1.0.5\\microsoft.aspnet.telemetrycorrelation.1.0.5.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.web.optimization\\1.1.3\\microsoft.aspnet.web.optimization.1.1.3.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.webapi\\5.2.7\\microsoft.aspnet.webapi.5.2.7.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.7\\microsoft.aspnet.webapi.client.5.2.7.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.webapi.core\\5.2.7\\microsoft.aspnet.webapi.core.5.2.7.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.webapi.webhost\\5.2.7\\microsoft.aspnet.webapi.webhost.5.2.7.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.aspnet.webpages\\3.2.7\\microsoft.aspnet.webpages.3.2.7.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.codedom.providers.dotnetcompilerplatform\\2.0.1\\microsoft.codedom.providers.dotnetcompilerplatform.2.0.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.jquery.unobtrusive.validation\\3.2.11\\microsoft.jquery.unobtrusive.validation.3.2.11.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.net.compilers\\2.10.0\\microsoft.net.compilers.2.10.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\microsoft.web.infrastructure\\1.0.0\\microsoft.web.infrastructure.1.0.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\modernizr\\2.8.3\\modernizr.2.8.3.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\pipelines.sockets.unofficial\\1.0.7\\pipelines.sockets.unofficial.1.0.7.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\popper.js\\1.14.3\\popper.js.1.14.3.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\respond\\1.4.2\\respond.1.4.2.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.buffers\\4.4.0\\system.buffers.4.4.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.diagnostics.diagnosticsource\\4.5.1\\system.diagnostics.diagnosticsource.4.5.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.diagnostics.performancecounter\\4.5.0\\system.diagnostics.performancecounter.4.5.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.io\\4.3.0\\system.io.4.3.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.io.compression\\4.3.0\\system.io.compression.4.3.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.io.compression.zipfile\\4.3.0\\system.io.compression.zipfile.4.3.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.io.pipelines\\4.5.1\\system.io.pipelines.4.5.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.memory\\4.5.1\\system.memory.4.5.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.net.http\\4.3.4\\system.net.http.4.3.4.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.numerics.vectors\\4.4.0\\system.numerics.vectors.4.4.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.0\\system.runtime.compilerservices.unsafe.4.5.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.security.cryptography.algorithms\\4.3.0\\system.security.cryptography.algorithms.4.3.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.security.cryptography.encoding\\4.3.0\\system.security.cryptography.encoding.4.3.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.security.cryptography.primitives\\4.3.0\\system.security.cryptography.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.security.cryptography.x509certificates\\4.3.0\\system.security.cryptography.x509certificates.4.3.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.threading.channels\\4.5.0\\system.threading.channels.4.5.0.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.1\\system.threading.tasks.extensions.4.5.1.nupkg.sha512",
+    "C:\\Users\\stevenpride\\.nuget\\packages\\webgrease\\1.6.0\\webgrease.1.6.0.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1608",
+      "level": "Warning",
+      "message": "Detected package version outside of dependency constraint: Autofac.Mvc5 4.0.2 requires Autofac (>= 4.0.1 && < 5.0.0) but version Autofac 6.1.0 was resolved.",
+      "projectPath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "libraryId": "Autofac",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.7.2"
+      ]
+    },
+    {
+      "code": "NU1902",
+      "level": "Warning",
+      "message": "Package 'bootstrap' 4.3.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-vc8w-jr9v-vj7f",
+      "projectPath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "libraryId": "bootstrap",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.7.2"
+      ]
+    },
+    {
+      "code": "NU1903",
+      "level": "Warning",
+      "message": "Package 'Newtonsoft.Json' 12.0.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "projectPath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "libraryId": "Newtonsoft.Json",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.7.2"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "message": "Detected package downgrade: System.Diagnostics.DiagnosticSource from 4.7.1 to 4.5.1. Reference the package directly from the project to select a different version. \r\n eShopLegacyMVC -> Autofac 6.1.0 -> System.Diagnostics.DiagnosticSource (>= 4.7.1) \r\n eShopLegacyMVC -> System.Diagnostics.DiagnosticSource (>= 4.5.1)",
+      "projectPath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "libraryId": "System.Diagnostics.DiagnosticSource",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.7.2"
+      ]
+    },
+    {
+      "code": "NU1605",
+      "level": "Warning",
+      "message": "Detected package downgrade: System.Threading.Tasks.Extensions from 4.5.2 to 4.5.1. Reference the package directly from the project to select a different version. \r\n eShopLegacyMVC -> Autofac 6.1.0 -> Microsoft.Bcl.AsyncInterfaces 1.1.0 -> System.Threading.Tasks.Extensions (>= 4.5.2) \r\n eShopLegacyMVC -> System.Threading.Tasks.Extensions (>= 4.5.1)",
+      "projectPath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\dev\\AppModernization\\AppModernization\\eShopLegacyMVC\\eShopLegacyMVC.csproj",
+      "libraryId": "System.Threading.Tasks.Extensions",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.7.2"
+      ]
+    }
+  ]
+}

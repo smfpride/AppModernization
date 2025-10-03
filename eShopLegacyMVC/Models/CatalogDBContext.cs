@@ -7,8 +7,17 @@ namespace eShopLegacyMVC.Models
 {
     public class CatalogDBContext : DbContext
     {
-        public CatalogDBContext() : base("name=CatalogDBContext")
+        public CatalogDBContext() : base(GetConnectionString())
         {
+        }
+
+        public CatalogDBContext(string connectionString) : base(connectionString)
+        {
+        }
+
+        private static string GetConnectionString()
+        {
+            return Infrastructure.ConfigurationProvider.GetConnectionString("CatalogDBContext");
         }
 
         public DbSet<CatalogItem> CatalogItems { get; set; }

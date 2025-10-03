@@ -26,6 +26,10 @@ namespace eShopLegacyMVC
 
         protected void Application_Start()
         {
+            // Log configuration summary for troubleshooting
+            var configSummary = Models.Infrastructure.ConfigurationProvider.GetConfigurationSummary();
+            _log.Info($"Application starting with configuration: {configSummary}");
+
             container = RegisterContainer();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             AreaRegistration.RegisterAllAreas();
@@ -33,6 +37,8 @@ namespace eShopLegacyMVC
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ConfigDataBase();
+
+            _log.Info("Application started successfully");
         }
 
         /// <summary>
@@ -65,7 +71,8 @@ namespace eShopLegacyMVC
             builder.RegisterControllers(thisAssembly);
             builder.RegisterApiControllers(thisAssembly);
 
-            var mockData = bool.Parse(ConfigurationManager.AppSettings["UseMockData"]);
+            // Use externalized configuration provider
+            var mockData = Models.Infrastructure.ConfigurationProvider.GetAppSettingAsBool("UseMockData", false);
             builder.RegisterModule(new ApplicationModule(mockData));
 
             var container = builder.Build();
@@ -82,7 +89,7 @@ namespace eShopLegacyMVC
 
         private void ConfigDataBase()
         {
-            var mockData = bool.Parse(ConfigurationManager.AppSettings["UseMockData"]);
+            var mockData = Models.Infrastructure.ConfigurationProvider.GetAppSettingAsBool("UseMockData", false);
 
             if (!mockData)
             {

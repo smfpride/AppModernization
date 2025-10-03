@@ -19,7 +19,7 @@ $webConfigPath = "eShopLegacyMVC\Web.config"
 if (Test-Path $webConfigPath) {
     $webConfigContent = Get-Content $webConfigPath -Raw
     
-    if ($webConfigContent -match "localdb.*MSSQLLocalDB") {
+    if ($webConfigContent -match 'Data Source=\(localdb\\\)MSSQLLocalDB;') {
         Write-Host "✅ LocalDB connection string found in Web.config" -ForegroundColor Green
     } else {
         Write-Host "❌ LocalDB connection string not found" -ForegroundColor Red

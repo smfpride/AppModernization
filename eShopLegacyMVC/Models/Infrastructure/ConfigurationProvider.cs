@@ -7,12 +7,22 @@ namespace eShopLegacyMVC.Models.Infrastructure
     /// Configuration provider that reads settings from environment variables first,
     /// then falls back to Web.config for local development compatibility.
     /// Follows Azure best practices for externalized configuration.
+    /// 
+    /// <para>
+    /// <b>Environment Variable Naming Convention:</b><br/>
+    /// This provider uses double underscores (<c>__</c>) in environment variable names to match .NET Core conventions.
+    /// For example, a connection string named <c>CatalogDBContext</c> should be set as <c>ConnectionStrings__CatalogDBContext</c>.
+    /// </para>
     /// </summary>
     public static class ConfigurationProvider
     {
         /// <summary>
         /// Gets a connection string by name, checking environment variables first,
-        /// then falling back to ConnectionStrings section in Web.config
+        /// then falling back to ConnectionStrings section in Web.config.
+        /// 
+        /// <para>
+        /// Environment variable names use double underscores (<c>__</c>) as separators, e.g. <c>ConnectionStrings__CatalogDBContext</c>.
+        /// </para>
         /// </summary>
         /// <param name="name">The name of the connection string</param>
         /// <returns>The connection string value</returns>
@@ -43,7 +53,11 @@ namespace eShopLegacyMVC.Models.Infrastructure
 
         /// <summary>
         /// Gets an application setting by key, checking environment variables first,
-        /// then falling back to AppSettings section in Web.config
+        /// then falling back to AppSettings section in Web.config.
+        /// 
+        /// <para>
+        /// Environment variable names use double underscores (<c>__</c>) as separators, e.g. <c>AppSettings__MySetting</c>.
+        /// </para>
         /// </summary>
         /// <param name="key">The setting key</param>
         /// <returns>The setting value or null if not found</returns>
@@ -92,19 +106,19 @@ namespace eShopLegacyMVC.Models.Infrastructure
         public static string GetApplicationInsightsInstrumentationKey()
         {
             // Check for Azure standard environment variable
-            var instrumentationKey = Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING");
+            var connectionString = Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING");
             
-            if (!string.IsNullOrEmpty(instrumentationKey))
+            if (!string.IsNullOrEmpty(connectionString))
             {
-                return instrumentationKey;
+                return connectionString;
             }
 
             // Check for legacy instrumentation key format
-            instrumentationKey = Environment.GetEnvironmentVariable("APPINSIGHTS_INSTRUMENTATIONKEY");
+            connectionString = Environment.GetEnvironmentVariable("APPINSIGHTS_INSTRUMENTATIONKEY");
             
-            if (!string.IsNullOrEmpty(instrumentationKey))
+            if (!string.IsNullOrEmpty(connectionString))
             {
-                return instrumentationKey;
+                return connectionString;
             }
 
             // Fallback to app settings

@@ -267,7 +267,9 @@
     <Compile Include="Controllers\PicController.cs" />
     <Compile Include="Controllers\WebApi\FilesController.cs" />
     <Compile Include="Controllers\WebApi\BrandsController.cs" />
+    <Compile Include="Models\Infrastructure\AzureSqlConnectionResilienceProvider.cs" />
     <Compile Include="Models\Infrastructure\CatalogDBInitializer.cs" />
+    <Compile Include="Models\Infrastructure\ConfigurationProvider.cs" />
     <Compile Include="Models\CatalogItemHiLoGenerator.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Global.asax.cs">

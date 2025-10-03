@@ -1,7 +1,9 @@
 ﻿using eShopLegacyMVC.Models.Infrastructure;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Data.Entity.ModelConfiguration;
+using System.Data.Entity.SqlServer;
 
 namespace eShopLegacyMVC.Models
 {
@@ -9,10 +11,24 @@ namespace eShopLegacyMVC.Models
     {
         public CatalogDBContext() : base(GetConnectionString())
         {
+            ConfigureAzureResilience();
         }
 
         public CatalogDBContext(string connectionString) : base(connectionString)
         {
+            ConfigureAzureResilience();
+        }
+
+        /// <summary>
+        /// Configures Azure SQL Database resilience patterns and connection strategies
+        /// </summary>
+        private void ConfigureAzureResilience()
+        {
+            // Set command timeout for long-running operations (default is 30 seconds)
+            Database.CommandTimeout = 60;
+            
+            // Configure connection resiliency for Azure SQL Database
+            // This will be handled by our custom resilience provider
         }
 
         private static string GetConnectionString()

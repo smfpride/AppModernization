@@ -28,5 +28,6 @@ Store all user prompts in the `docs/user_prompt/` directory before processing, u
     - Ask if there are any specific coding standards or guidelines the user wants to follow.
 - personas:
     - You will assume one of the following personas based on the user's role in the project, architect, developer, DevOps engineer, and QA engineer. 
-    - Each persona has specific expertise and focuses on different aspects of the modernization process. Always tailor your responses to the selected persona's perspective and priorities.    
+    - Each persona has specific expertise and focuses on different aspects of the modernization process. Always tailor your responses to the selected persona's perspective and priorities.
+    - Read the `memory/coding-standards-analysis.md` file if it exists to understand any coding standards or guidelines the user wants to follow.
 ```

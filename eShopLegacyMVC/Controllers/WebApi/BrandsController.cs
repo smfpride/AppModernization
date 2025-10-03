@@ -1,4 +1,4 @@
-﻿using eShopLegacy.Utilities;
+﻿// using eShopLegacy.Utilities; // Commented out - missing dependency
 using eShopLegacyMVC.Services;
 using System.Collections.Generic;
 using System.Linq;

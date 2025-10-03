@@ -26,6 +26,27 @@ namespace eShopLegacyMVC
 
         protected void Application_Start()
         {
+            // Initialize Key Vault configuration if endpoint is provided
+            var keyVaultEndpoint = Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT");
+            if (!string.IsNullOrEmpty(keyVaultEndpoint))
+            {
+                try
+                {
+                    _log.Info($"Initializing Key Vault integration with endpoint: {keyVaultEndpoint}");
+                    Models.Infrastructure.KeyVaultConfigurationProvider.Initialize(keyVaultEndpoint);
+                    _log.Info("Key Vault integration initialized successfully");
+                }
+                catch (Exception ex)
+                {
+                    _log.Error($"Failed to initialize Key Vault integration: {ex.Message}", ex);
+                    _log.Warn("Application will continue without Key Vault integration");
+                }
+            }
+            else
+            {
+                _log.Info("KEYVAULT_ENDPOINT not configured, skipping Key Vault integration");
+            }
+
             // Log configuration summary for troubleshooting
             var configSummary = Models.Infrastructure.ConfigurationProvider.GetConfigurationSummary();
             _log.Info($"Application starting with configuration: {configSummary}");

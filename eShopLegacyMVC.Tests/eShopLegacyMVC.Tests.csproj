@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Infrastructure\ConfigurationProviderTests.cs" />
+    <Compile Include="Infrastructure\KeyVaultConfigurationProviderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

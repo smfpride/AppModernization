@@ -93,7 +93,17 @@ namespace eShopLegacyMVC
 
             if (!mockData)
             {
-                Database.SetInitializer<CatalogDBContext>(container.Resolve<CatalogDBInitializer>());
+                // For Azure SQL Database, use automatic migrations instead of the legacy initializer
+                // The CatalogDBContext constructor already configures MigrateDatabaseToLatestVersion
+                // Database.SetInitializer<CatalogDBContext>(container.Resolve<CatalogDBInitializer>());
+                
+                // Ensure database exists and is up to date by attempting a connection with resilience
+                using (var context = new CatalogDBContext())
+                {
+                    // This will trigger the migration if database doesn't exist or needs updating
+                    // Using resilient extension method for Azure SQL Database
+                    context.MigrateDatabaseWithRetry();
+                }
             }
         }
 

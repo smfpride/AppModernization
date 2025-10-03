@@ -1,10 +1,11 @@
-﻿using eShopLegacy.Utilities;
+﻿// using eShopLegacy.Utilities; // Commented out - missing dependency
 using eShopLegacyMVC.Services;
 using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.IO;
 
 namespace eShopLegacyMVC.Controllers.WebApi
 {
@@ -26,12 +27,9 @@ namespace eShopLegacyMVC.Controllers.WebApi
                     Id = b.Id,
                     Brand = b.Brand
                 }).ToList();
-            var serializer = new Serializing();
-            var response = new HttpResponseMessage(HttpStatusCode.OK)
-            {
-                Content = new StreamContent(serializer.SerializeBinary(brands))
-            };
-
+            
+            // Return JSON response instead of binary serialization
+            var response = Request.CreateResponse(HttpStatusCode.OK, brands);
             return response;
         }
 

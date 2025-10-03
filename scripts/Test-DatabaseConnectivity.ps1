@@ -6,7 +6,19 @@ param(
     [string]$ConnectionString = "",
     
     [Parameter(Mandatory = $false)]
-    [switch]$UseEnvironmentVariables = $false
+    [switch]$UseEnvironmentVariables = $false,
+    
+    [Parameter(Mandatory = $false)]
+    [string]$ServerName = "sql-eshop-prototype-eastus2.database.windows.net",
+    
+    [Parameter(Mandatory = $false)]
+    [string]$DatabaseName = "CatalogDb",
+    
+    [Parameter(Mandatory = $false)]
+    [string]$Username = "eshopadmin",
+    
+    [Parameter(Mandatory = $false)]
+    [string]$Password = ""
 )
 
 $ErrorActionPreference = "Stop"
@@ -30,14 +42,14 @@ try {
         }
         Write-Host "📋 Using connection string from environment variable" -ForegroundColor Green
     } elseif ([string]::IsNullOrEmpty($ConnectionString)) {
-        # Default Azure SQL Database connection (will need credentials)
-        Write-Host "⚠️ No connection string provided. Using default Azure SQL configuration." -ForegroundColor Yellow
-        Write-Host "   You'll need to set the ConnectionStrings__CatalogDBContext environment variable" -ForegroundColor Yellow
-        Write-Host "   or provide a connection string parameter." -ForegroundColor Yellow
+        if ([string]::IsNullOrEmpty($Password)) {
+            $securePassword = Read-Host "Enter password for $Username" -AsSecureString
+            $Password = [System.Runtime.InteropServices.Marshal]::PtrToStringAuto([System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePassword))
+        }
         
-        # Try to build a test connection string
-        $ConnectionString = "Server=tcp:sql-eshop-prototype-eastus2.database.windows.net,1433;Initial Catalog=CatalogDb;Persist Security Info=False;User ID=testuser;Password=testpass;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-        Write-Host "   Using placeholder connection string for testing" -ForegroundColor Gray
+        # Build connection string with provided parameters
+        $ConnectionString = "Server=tcp:$ServerName,1433;Initial Catalog=$DatabaseName;Persist Security Info=False;User ID=$Username;Password=$Password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+        Write-Host "📋 Using provided connection parameters for $ServerName" -ForegroundColor Green
     }
 
     # Mask password in output

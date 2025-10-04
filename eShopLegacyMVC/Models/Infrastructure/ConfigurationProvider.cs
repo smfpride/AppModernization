@@ -17,8 +17,8 @@ namespace eShopLegacyMVC.Models.Infrastructure
     public static class ConfigurationProvider
     {
         /// <summary>
-        /// Gets a connection string by name, checking environment variables first,
-        /// then falling back to ConnectionStrings section in Web.config.
+        /// Gets a connection string by name, checking Key Vault first (if enabled),
+        /// then environment variables, and finally falling back to Web.config.
         /// 
         /// <para>
         /// Environment variable names use double underscores (<c>__</c>) as separators, e.g. <c>ConnectionStrings__CatalogDBContext</c>.
@@ -32,7 +32,25 @@ namespace eShopLegacyMVC.Models.Infrastructure
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentException("Connection string name cannot be null or empty", nameof(name));
 
-            // Check environment variable first (Azure-friendly approach)
+            // Check Key Vault first (if enabled)
+            if (KeyVaultConfigurationProvider.IsEnabled)
+            {
+                // Try common Key Vault secret names for connection strings
+                // Azure convention: CatalogDbConnectionString
+                var keyVaultSecretName = $"{name}ConnectionString";
+                if (KeyVaultConfigurationProvider.TryGetSecret(keyVaultSecretName, out string kvConnectionString))
+                {
+                    return kvConnectionString;
+                }
+
+                // Also try the exact name
+                if (KeyVaultConfigurationProvider.TryGetSecret(name, out kvConnectionString))
+                {
+                    return kvConnectionString;
+                }
+            }
+
+            // Check environment variable (Azure-friendly approach)
             var envVarName = $"ConnectionStrings__{name}";
             var connectionString = Environment.GetEnvironmentVariable(envVarName);
             
@@ -48,7 +66,7 @@ namespace eShopLegacyMVC.Models.Infrastructure
                 return configConnectionString.ConnectionString;
             }
 
-            throw new InvalidOperationException($"Connection string '{name}' not found in environment variables or Web.config");
+            throw new InvalidOperationException($"Connection string '{name}' not found in Key Vault, environment variables, or Web.config");
         }
 
         /// <summary>
@@ -99,12 +117,26 @@ namespace eShopLegacyMVC.Models.Infrastructure
         }
 
         /// <summary>
-        /// Gets the Application Insights instrumentation key from environment variables first,
-        /// then falls back to Web.config appSettings
+        /// Gets the Application Insights instrumentation key from Key Vault (if enabled),
+        /// then environment variables, and finally falls back to Web.config appSettings
         /// </summary>
         /// <returns>The instrumentation key or null if not configured</returns>
         public static string GetApplicationInsightsInstrumentationKey()
         {
+            // Check Key Vault first (if enabled)
+            if (KeyVaultConfigurationProvider.IsEnabled)
+            {
+                // Try common Key Vault secret names
+                if (KeyVaultConfigurationProvider.TryGetSecret("ApplicationInsights--InstrumentationKey", out string kvKey))
+                {
+                    return kvKey;
+                }
+                if (KeyVaultConfigurationProvider.TryGetSecret("ApplicationInsightsInstrumentationKey", out kvKey))
+                {
+                    return kvKey;
+                }
+            }
+
             // Check for Azure standard environment variable
             var connectionString = Environment.GetEnvironmentVariable("APPLICATIONINSIGHTS_CONNECTION_STRING");
             

@@ -1,0 +1,54 @@
+# Cross-Platform Dockerfile for eShopLegacyMVC
+# This Dockerfile creates a Linux-compatible container for the .NET Framework 4.8 application
+# Uses multi-stage build for optimization and cross-platform compatibility
+#
+# Author: Alex (DevOps Engineer)
+# Date: October 5, 2025
+# Context: Story 8 critical deployment fix - cross-platform modernization
+
+# Build stage: Use Windows SDK container for building
+FROM mcr.microsoft.com/dotnet/framework/sdk:4.8 AS build
+WORKDIR /app
+
+# Copy project files
+COPY *.csproj .
+COPY packages.config .
+
+# Restore NuGet packages
+RUN nuget restore
+
+# Copy source code
+COPY . .
+
+# Build the application
+RUN msbuild /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath=/app/out/
+
+# Runtime stage: Use cross-platform ASP.NET runtime
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+WORKDIR /app
+
+# Install IIS compatibility and Windows compatibility layers
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy built application from build stage
+COPY --from=build /app/out/ .
+
+# Configure the application to run on Linux
+ENV ASPNETCORE_URLS=http://+:80
+ENV ASPNETCORE_ENVIRONMENT=Production
+
+# Create a startup script that handles .NET Framework compatibility
+RUN echo '#!/bin/bash\n\
+dotnet eShopLegacyMVC.dll\n\
+' > /app/start.sh && chmod +x /app/start.sh
+
+EXPOSE 80
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
+    CMD curl -f http://localhost:80/ || exit 1
+
+ENTRYPOINT ["/app/start.sh"]

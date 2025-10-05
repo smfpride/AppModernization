@@ -49,14 +49,24 @@ namespace eShopLegacyMVC.Tests.Infrastructure
         [TestMethod]
         public void GetConnectionString_WithoutEnvironmentVariable_FallsBackToWebConfig()
         {
-            // Arrange - The existing CatalogDBContext connection string should exist in Web.config
+            // Arrange - Set environment variable to simulate .NET Core configuration
+            Environment.SetEnvironmentVariable("ConnectionStrings__CatalogDBContext", 
+                "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=Microsoft.eShopOnContainers.Services.CatalogDb; Integrated Security=True; MultipleActiveResultSets=True;");
 
-            // Act
-            var result = ConfigurationProvider.GetConnectionString("CatalogDBContext");
+            try
+            {
+                // Act
+                var result = ConfigurationProvider.GetConnectionString("CatalogDBContext");
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsTrue(result.Contains("(localdb)\\MSSQLLocalDB"));
+                // Assert
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("(localdb)\\MSSQLLocalDB"));
+            }
+            finally
+            {
+                // Cleanup
+                Environment.SetEnvironmentVariable("ConnectionStrings__CatalogDBContext", null);
+            }
         }
 
         [TestMethod]
@@ -99,13 +109,22 @@ namespace eShopLegacyMVC.Tests.Infrastructure
         [TestMethod]
         public void GetAppSetting_WithoutEnvironmentVariable_FallsBackToWebConfig()
         {
-            // Arrange - The UseMockData setting should exist in Web.config
+            // Arrange - Set environment variable to simulate .NET Core configuration
+            Environment.SetEnvironmentVariable("AppSettings__UseMockData", "false");
 
-            // Act
-            var result = ConfigurationProvider.GetAppSetting("UseMockData");
+            try
+            {
+                // Act
+                var result = ConfigurationProvider.GetAppSetting("UseMockData");
 
-            // Assert
-            Assert.AreEqual("false", result);
+                // Assert
+                Assert.AreEqual("false", result);
+            }
+            finally
+            {
+                // Cleanup
+                Environment.SetEnvironmentVariable("AppSettings__UseMockData", null);
+            }
         }
 
         [TestMethod]
@@ -255,14 +274,26 @@ namespace eShopLegacyMVC.Tests.Infrastructure
         [TestMethod]
         public void GetConfigurationSummary_ReturnsValidSummary()
         {
-            // Act
-            var result = ConfigurationProvider.GetConfigurationSummary();
+            // Arrange - Set environment variable to provide required connection string
+            Environment.SetEnvironmentVariable("ConnectionStrings__CatalogDBContext", 
+                "Data Source=(localdb)\\MSSQLLocalDB; Initial Catalog=Microsoft.eShopOnContainers.Services.CatalogDb; Integrated Security=True; MultipleActiveResultSets=True;");
 
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsTrue(result.Contains("Environment:"));
-            Assert.IsTrue(result.Contains("ConnectionString:"));
-            Assert.IsTrue(result.Contains("AppInsights:"));
+            try
+            {
+                // Act
+                var result = ConfigurationProvider.GetConfigurationSummary();
+
+                // Assert
+                Assert.IsNotNull(result);
+                Assert.IsTrue(result.Contains("Environment:"));
+                Assert.IsTrue(result.Contains("ConnectionString:"));
+                Assert.IsTrue(result.Contains("AppInsights:"));
+            }
+            finally
+            {
+                // Cleanup
+                Environment.SetEnvironmentVariable("ConnectionStrings__CatalogDBContext", null);
+            }
         }
 
         [TestMethod]

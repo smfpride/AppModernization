@@ -1,6 +1,0 @@
-    M  ﻿<?xml version="1.0" encoding="utf-8"?>
-<Migration
-    Id="202510030001_InitialCreate"
-    Language="C#"
-    Context="eShopLegacyMVC.Models.CatalogDBContext"
-    Timestamp="202510030001" />

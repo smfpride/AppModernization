@@ -1,9 +1,7 @@
 using Azure.Core;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using log4net;
 using System;
-using System.Reflection;
 
 namespace eShopLegacyMVC.Models.Infrastructure
 {
@@ -17,8 +15,7 @@ namespace eShopLegacyMVC.Models.Infrastructure
     /// </summary>
     public class KeyVaultConfigurationProvider
     {
-        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private static SecretClient _client;
+        private static SecretClient? _client;
         private static bool _isInitialized = false;
         private static bool _isEnabled = false;
         private static readonly object _lock = new object();
@@ -34,13 +31,13 @@ namespace eShopLegacyMVC.Models.Infrastructure
             {
                 if (_isInitialized)
                 {
-                    _log.Debug("Key Vault provider already initialized");
+                    Console.WriteLine("Key Vault provider already initialized");
                     return;
                 }
 
                 if (string.IsNullOrEmpty(keyVaultEndpoint))
                 {
-                    _log.Info("Key Vault endpoint not configured. Key Vault integration disabled.");
+                    Console.WriteLine("Key Vault endpoint not configured. Key Vault integration disabled.");
                     _isInitialized = true;
                     _isEnabled = false;
                     return;
@@ -48,7 +45,7 @@ namespace eShopLegacyMVC.Models.Infrastructure
 
                 try
                 {
-                    _log.Info($"Initializing Key Vault client for endpoint: {keyVaultEndpoint}");
+                    Console.WriteLine($"Initializing Key Vault client for endpoint: {keyVaultEndpoint}");
 
                     // Create DefaultAzureCredential with options
                     var credentialOptions = new DefaultAzureCredentialOptions
@@ -66,11 +63,11 @@ namespace eShopLegacyMVC.Models.Infrastructure
 
                     _isEnabled = true;
                     _isInitialized = true;
-                    _log.Info("Key Vault client initialized successfully");
+                    Console.WriteLine("Key Vault client initialized successfully");
                 }
                 catch (Exception ex)
                 {
-                    _log.Error($"Failed to initialize Key Vault client: {ex.Message}", ex);
+                    Console.WriteLine($"Failed to initialize Key Vault client: {ex.Message}");
                     _isInitialized = true;
                     _isEnabled = false;
                     throw new InvalidOperationException("Failed to initialize Key Vault client", ex);
@@ -89,7 +86,7 @@ namespace eShopLegacyMVC.Models.Infrastructure
         /// </summary>
         /// <param name="secretName">The name of the secret in Key Vault</param>
         /// <returns>The secret value or null if not found</returns>
-        public static string GetSecret(string secretName)
+        public static string? GetSecret(string secretName)
         {
             if (!_isInitialized)
             {
@@ -101,35 +98,35 @@ namespace eShopLegacyMVC.Models.Infrastructure
                 throw new ArgumentException("Secret name cannot be null or empty", nameof(secretName));
             }
 
-            if (!_isEnabled)
+            if (!_isEnabled || _client == null)
             {
-                _log.Debug($"Key Vault disabled, cannot retrieve secret: {secretName}");
+                Console.WriteLine($"Key Vault disabled, cannot retrieve secret: {secretName}");
                 return null;
             }
 
             try
             {
-                _log.Debug($"Retrieving secret from Key Vault: {secretName}");
+                Console.WriteLine($"Retrieving secret from Key Vault: {secretName}");
                 
                 var secret = _client.GetSecret(secretName);
                 
                 if (secret?.Value != null)
                 {
-                    _log.Info($"Successfully retrieved secret: {secretName}");
+                    Console.WriteLine($"Successfully retrieved secret: {secretName}");
                     return secret.Value.Value;
                 }
 
-                _log.Warn($"Secret not found in Key Vault: {secretName}");
+                Console.WriteLine($"Secret not found in Key Vault: {secretName}");
                 return null;
             }
             catch (Azure.RequestFailedException ex) when (ex.Status == 404)
             {
-                _log.Warn($"Secret not found in Key Vault: {secretName}");
+                Console.WriteLine($"Secret not found in Key Vault: {secretName}");
                 return null;
             }
             catch (Exception ex)
             {
-                _log.Error($"Error retrieving secret '{secretName}' from Key Vault: {ex.Message}", ex);
+                Console.WriteLine($"Error retrieving secret '{secretName}' from Key Vault: {ex.Message}");
                 return null;
             }
         }
@@ -140,7 +137,7 @@ namespace eShopLegacyMVC.Models.Infrastructure
         /// <param name="secretName">The name of the secret in Key Vault</param>
         /// <param name="secretValue">The secret value if found</param>
         /// <returns>True if the secret was retrieved successfully, false otherwise</returns>
-        public static bool TryGetSecret(string secretName, out string secretValue)
+        public static bool TryGetSecret(string secretName, out string? secretValue)
         {
             secretValue = GetSecret(secretName);
             return !string.IsNullOrEmpty(secretValue);
@@ -158,7 +155,7 @@ namespace eShopLegacyMVC.Models.Infrastructure
                 _client = null;
                 _isInitialized = false;
                 _isEnabled = false;
-                _log.Debug("Key Vault provider state reset for testing");
+                Console.WriteLine("Key Vault provider state reset for testing");
             }
         }
 #endif

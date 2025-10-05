@@ -3,7 +3,7 @@
 # For development on Linux Docker Desktop, see Dockerfile.dev
 
 # Use Windows Server Core with IIS as the base image for .NET Framework 4.7.2
-FROM mcr.microsoft.com/dotnet/framework/aspnet:4.7.2-windowsservercore-ltsc2022
+FROM mcr.microsoft.com/dotnet/framework/aspnet:4.8
 
 # Set the working directory in the container
 WORKDIR /inetpub/wwwroot
@@ -19,20 +19,9 @@ RUN Remove-WebSite -Name 'Default Web Site'; \
 ENV ASPNET_ENVIRONMENT=Production
 ENV CatalogDBContext=""
 
-# Copy the application files to the container
+# Copy the pre-built application files to the container
+# Note: Build the application locally first using Visual Studio or MSBuild
 COPY . .
-
-# Restore NuGet packages and build application
-RUN if (Test-Path 'packages.config') { \
-        Write-Host 'Restoring NuGet packages...'; \
-        nuget restore; \
-    } else { \
-        Write-Host 'No packages.config found, skipping package restore'; \
-    }
-
-# Build the application in Release mode
-RUN Write-Host 'Building application...'; \
-    msbuild eShopLegacyMVC.csproj /p:Configuration=Release /p:Platform=AnyCPU /p:OutputPath=bin\
 
 # Set proper permissions for IIS application pool
 RUN icacls 'C:\inetpub\wwwroot' /grant 'IIS_IUSRS:(OI)(CI)F' /T; \

@@ -156,9 +156,9 @@ Successfully migrated the eShopLegacyMVC application from .NET Framework 4.7.2 t
 
 ## Breaking Changes & Known Issues
 
-1. **Configuration Tests:** 3 tests fail because they expect Web.config which no longer exists. These can be updated or removed as they test legacy behavior.
+1. **Configuration Tests:** ~~3 tests fail because they expect Web.config~~ - **FIXED** ✅ Updated to use environment variables (modern .NET Core approach)
 
-2. **EF Core Migrations:** Need to be created separately. The application will attempt to create the database on first run but migrations provide better schema management.
+2. **EF Core Migrations:** ~~Need to be created separately~~ - **COMPLETE** ✅ `InitialCreate` migration created with all tables and relationships
 
 3. **Session Management:** Simplified from ASP.NET session state to built-in session middleware. Some session features may behave differently.
 
@@ -168,13 +168,31 @@ Successfully migrated the eShopLegacyMVC application from .NET Framework 4.7.2 t
 
 ## Database Migration
 
-EF Core migrations need to be created:
+**Migration Created:** `20251005134526_InitialCreate`
 
+### Applying the Migration
+
+**Option 1: Manual Application**
 ```bash
 cd eShopLegacyMVC
-dotnet ef migrations add InitialMigrationNet8
 dotnet ef database update
 ```
+
+**Option 2: Automatic on Startup**
+The application automatically applies pending migrations on startup (see Program.cs lines 100-108).
+
+### Schema Details
+
+**Tables Created:**
+- `CatalogBrand` - Brand information
+- `CatalogType` - Product type/category information
+- `Catalog` - Product catalog items with foreign keys to Brand and Type
+
+**Key Configuration:**
+- All entity IDs use manual assignment (no auto-increment/IDENTITY)
+- Price column uses decimal(18,2) precision
+- Foreign key indexes created for query performance
+- Cascade delete configured for referential integrity
 
 ## Performance Improvements
 
@@ -192,9 +210,9 @@ dotnet ef database update
 
 ## Next Steps
 
-1. Create EF Core migrations for database schema
+1. ~~Create EF Core migrations for database schema~~ ✅ **COMPLETE**
 2. Test with actual database connection
-3. Update any remaining configuration tests
+3. ~~Update any remaining configuration tests~~ ✅ **COMPLETE**
 4. Consider containerization with Docker
 5. Deploy to Azure for integration testing
 6. Set up CI/CD pipeline for .NET 8

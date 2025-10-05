@@ -1,8 +1,15 @@
+using System;
 using eShopLegacyMVC.Models;
 using eShopLegacyMVC.Models.Infrastructure;
 using eShopLegacyMVC.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System.Linq;
+using Microsoft.Extensions.Configuration;
+using Azure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +22,10 @@ builder.Logging.AddDebug();
 var keyVaultEndpoint = Environment.GetEnvironmentVariable("KEYVAULT_ENDPOINT");
 if (!string.IsNullOrEmpty(keyVaultEndpoint))
 {
+    var uri = new Uri(keyVaultEndpoint);
     builder.Configuration.AddAzureKeyVault(
-        new Uri(keyVaultEndpoint),
-        new Azure.Identity.DefaultAzureCredential());
+        uri,
+        new DefaultAzureCredential());
 }
 
 // Add services to the container

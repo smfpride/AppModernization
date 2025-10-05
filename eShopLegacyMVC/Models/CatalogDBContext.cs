@@ -1,48 +1,23 @@
-﻿using eShopLegacyMVC.Models.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Data.Entity.Migrations;
-using System.Data.Entity.ModelConfiguration;
-using System.Data.Entity.SqlServer;
 
 namespace eShopLegacyMVC.Models
 {
     public class CatalogDBContext : DbContext
     {
-        public CatalogDBContext() : base(GetConnectionString())
+        public CatalogDBContext(DbContextOptions<CatalogDBContext> options) : base(options)
         {
-            ConfigureAzureResilience();
+            // EF Core handles connection resiliency through DbContextOptions
+            Database.SetCommandTimeout(60);
         }
 
-        public CatalogDBContext(string connectionString) : base(connectionString)
-        {
-            ConfigureAzureResilience();
-        }
+        public DbSet<CatalogItem> CatalogItems { get; set; } = null!;
 
-        /// <summary>
-        /// Configures Azure SQL Database resilience patterns and connection strategies
-        /// </summary>
-        private void ConfigureAzureResilience()
-        {
-            // Set command timeout for long-running operations (default is 30 seconds)
-            Database.CommandTimeout = 60;
-            
-            // Configure connection resiliency for Azure SQL Database
-            // This will be handled by our custom resilience provider
-        }
+        public DbSet<CatalogBrand> CatalogBrands { get; set; } = null!;
 
-        private static string GetConnectionString()
-        {
-            return Infrastructure.ConfigurationProvider.GetConnectionString("CatalogDBContext");
-        }
+        public DbSet<CatalogType> CatalogTypes { get; set; } = null!;
 
-        public DbSet<CatalogItem> CatalogItems { get; set; }
-
-        public DbSet<CatalogBrand> CatalogBrands { get; set; }
-
-        public DbSet<CatalogType> CatalogTypes { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
             ConfigureCatalogType(builder.Entity<CatalogType>());
             ConfigureCatalogBrand(builder.Entity<CatalogBrand>());
@@ -51,7 +26,7 @@ namespace eShopLegacyMVC.Models
             base.OnModelCreating(builder);
         }
 
-        void ConfigureCatalogType(EntityTypeConfiguration<CatalogType> builder)
+        void ConfigureCatalogType(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CatalogType> builder)
         {
             builder.ToTable("CatalogType");
 
@@ -65,7 +40,7 @@ namespace eShopLegacyMVC.Models
                 .HasMaxLength(100);
         }
 
-        void ConfigureCatalogBrand(EntityTypeConfiguration<CatalogBrand> builder)
+        void ConfigureCatalogBrand(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CatalogBrand> builder)
         {
             builder.ToTable("CatalogBrand");
 
@@ -79,14 +54,14 @@ namespace eShopLegacyMVC.Models
                 .HasMaxLength(100);
         }
 
-        void ConfigureCatalogItem(EntityTypeConfiguration<CatalogItem> builder)
+        void ConfigureCatalogItem(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CatalogItem> builder)
         {
             builder.ToTable("Catalog");
 
             builder.HasKey(ci => ci.Id);
 
             builder.Property(ci => ci.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None)
+                .ValueGeneratedNever()
                 .IsRequired();
 
             builder.Property(ci => ci.Name)
@@ -101,13 +76,15 @@ namespace eShopLegacyMVC.Models
 
             builder.Ignore(ci => ci.PictureUri);
 
-            builder.HasRequired<CatalogBrand>(ci => ci.CatalogBrand)
+            builder.HasOne<CatalogBrand>(ci => ci.CatalogBrand)
                 .WithMany()
-                .HasForeignKey(ci => ci.CatalogBrandId);
+                .HasForeignKey(ci => ci.CatalogBrandId)
+                .IsRequired();
 
-            builder.HasRequired<CatalogType>(ci => ci.CatalogType)
+            builder.HasOne<CatalogType>(ci => ci.CatalogType)
                 .WithMany()
-                .HasForeignKey(ci => ci.CatalogTypeId);
+                .HasForeignKey(ci => ci.CatalogTypeId)
+                .IsRequired();
         }
     }
 }

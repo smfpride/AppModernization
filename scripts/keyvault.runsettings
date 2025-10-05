@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <EnvironmentVariables>
+      <KEYVAULT_ENDPOINT>https://kv-eshop-prototype.vault.azure.net/</KEYVAULT_ENDPOINT>
+    </EnvironmentVariables>
+  </RunConfiguration>
+</RunSettings>

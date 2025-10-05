@@ -1,0 +1,5 @@
+{
+  "windowsFxVersion": "DOCKER|acreshopprototype.azurecr.io/eshoplegacymvc:v1.0",
+  "acrUseManagedIdentityCreds": true,
+  "alwaysOn": true
+}

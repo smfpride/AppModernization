@@ -38,7 +38,7 @@ az sql db create --resource-group rg-eshop-prototype-eastus2 --server sql-eshop-
 az sql server firewall-rule create --resource-group rg-eshop-prototype-eastus2 --server sql-eshop-prototype-eastus2 --name 'AllowAzureServices' --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
 
 # Create Key Vault
-az keyvault create --name kv-eshop-prototype-eastus2 --resource-group rg-eshop-prototype-eastus2 --sku standard --enable-soft-delete
+az keyvault create --name kv-eshop-prototype --resource-group rg-eshop-prototype-eastus2 --sku standard --enable-soft-delete
 
 # Create App Service Plan
 az appservice plan create --name asp-eshop-prototype-eastus2 --resource-group rg-eshop-prototype-eastus2 --sku S1 --location eastus2 --is-linux false
@@ -64,7 +64,7 @@ az webapp list --resource-group rg-eshop-prototype-eastus2 --output table
 - **Resource Group**: `rg-eshop-prototype-eastus2` in East US 2
 - **SQL Server**: `sql-eshop-prototype-eastus2.database.windows.net`
 - **Database**: `CatalogDb` (S2 Standard, ~$75/month)
-- **Key Vault**: `https://kv-eshop-prototype-eastus2.vault.azure.net/`
+- **Key Vault**: `https://kv-eshop-prototype.vault.azure.net/`
 - **App Service**: `https://app-eshop-prototype-eastus2.azurewebsites.net`
 - **Total Cost**: ~$150/month for prototype environment
 

@@ -162,7 +162,7 @@ Test cases for validating Azure infrastructure provisioning (Story 3) for the eS
 
 **Test Steps**:
 1. Create Azure Key Vault:
-   - Name: `kv-eshop-prototype-eastus2`
+   - Name: `kv-eshop-prototype`
    - Location: East US 2
    - Pricing tier: Standard
    - Access policy model: Access policies (not RBAC)

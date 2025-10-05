@@ -33,6 +33,7 @@ namespace eShopLegacyMVC.Models
             builder.HasKey(ci => ci.Id);
 
             builder.Property(ci => ci.Id)
+               .ValueGeneratedNever()
                .IsRequired();
 
             builder.Property(cb => cb.Type)
@@ -47,6 +48,7 @@ namespace eShopLegacyMVC.Models
             builder.HasKey(ci => ci.Id);
 
             builder.Property(ci => ci.Id)
+               .ValueGeneratedNever()
                .IsRequired();
 
             builder.Property(cb => cb.Brand)
@@ -69,6 +71,7 @@ namespace eShopLegacyMVC.Models
                 .HasMaxLength(50);
 
             builder.Property(ci => ci.Price)
+                .HasPrecision(18, 2)
                 .IsRequired();
 
             builder.Property(ci => ci.PictureFileName)

@@ -1,0 +1,19 @@
+{
+  "windowsFxVersion": "DOCKER|acreshopprototype.azurecr.io/eshoplegacymvc:v1.0",
+  "acrUseManagedIdentityCreds": true,
+  "alwaysOn": true,
+  "appSettings": [
+    {
+      "name": "WEBSITES_ENABLE_APP_SERVICE_STORAGE",
+      "value": "false"
+    },
+    {
+      "name": "DOCKER_REGISTRY_SERVER_URL", 
+      "value": "https://acreshopprototype.azurecr.io"
+    },
+    {
+      "name": "DOCKER_REGISTRY_SERVER_USERNAME",
+      "value": "acreshopprototype"
+    }
+  ]
+}

@@ -17,12 +17,12 @@ The application now retrieves secrets from Azure Key Vault instead of storing th
    
    **PowerShell:**
    ```powershell
-   $env:KEYVAULT_ENDPOINT = "https://kv-eshop-prototype-eastus2.vault.azure.net/"
+   $env:KEYVAULT_ENDPOINT = "https://kv-eshop-prototype.vault.azure.net/"
    ```
    
    **Bash:**
    ```bash
-   export KEYVAULT_ENDPOINT="https://kv-eshop-prototype-eastus2.vault.azure.net/"
+   export KEYVAULT_ENDPOINT="https://kv-eshop-prototype.vault.azure.net/"
    ```
 
 3. **Run the application** - It will automatically use Key Vault!
@@ -36,7 +36,7 @@ Just ensure the `KEYVAULT_ENDPOINT` app setting is configured:
 az webapp config appsettings set \
   --resource-group rg-eshop-prototype-eastus2 \
   --name app-eshop-prototype-eastus2 \
-  --settings KEYVAULT_ENDPOINT="https://kv-eshop-prototype-eastus2.vault.azure.net/"
+  --settings KEYVAULT_ENDPOINT="https://kv-eshop-prototype.vault.azure.net/"
 ```
 
 ## 📋 Configuration Hierarchy
@@ -124,7 +124,7 @@ az account show
 **Solution:** Request access from admin
 ```bash
 az keyvault set-policy \
-  --name kv-eshop-prototype-eastus2 \
+  --name kv-eshop-prototype \
   --upn your-email@company.com \
   --secret-permissions get list
 ```
@@ -150,7 +150,7 @@ az keyvault set-policy \
 ### Quick Test
 ```powershell
 # Set Key Vault endpoint
-$env:KEYVAULT_ENDPOINT = "https://kv-eshop-prototype-eastus2.vault.azure.net/"
+$env:KEYVAULT_ENDPOINT = "https://kv-eshop-prototype.vault.azure.net/"
 
 # Run test script
 .\test-keyvault-integration.ps1
@@ -161,11 +161,11 @@ $env:KEYVAULT_ENDPOINT = "https://kv-eshop-prototype-eastus2.vault.azure.net/"
 ### Verify Secret Retrieval
 ```bash
 # List secrets
-az keyvault secret list --vault-name kv-eshop-prototype-eastus2
+az keyvault secret list --vault-name kv-eshop-prototype
 
 # Get secret value (redacted)
 az keyvault secret show \
-  --vault-name kv-eshop-prototype-eastus2 \
+  --vault-name kv-eshop-prototype \
   --name CatalogDbConnectionString \
   --query "value" -o tsv
 ```
@@ -191,20 +191,20 @@ az keyvault secret show \
 az login
 
 # Check Key Vault access
-az keyvault secret list --vault-name kv-eshop-prototype-eastus2
+az keyvault secret list --vault-name kv-eshop-prototype
 
 # Get a secret
-az keyvault secret show --vault-name kv-eshop-prototype-eastus2 --name CatalogDbConnectionString
+az keyvault secret show --vault-name kv-eshop-prototype --name CatalogDbConnectionString
 
 # Set a secret
-az keyvault secret set --vault-name kv-eshop-prototype-eastus2 --name MySecret --value "MyValue"
+az keyvault secret set --vault-name kv-eshop-prototype --name MySecret --value "MyValue"
 
 # Check Managed Identity
 az webapp identity show --resource-group rg-eshop-prototype-eastus2 --name app-eshop-prototype-eastus2
 
 # Grant Key Vault access
 az keyvault set-policy \
-  --name kv-eshop-prototype-eastus2 \
+  --name kv-eshop-prototype \
   --object-id <principal-id> \
   --secret-permissions get list
 ```

@@ -101,7 +101,7 @@
 - ✅ **Resource Group**: `rg-eshop-prototype-eastus2` - LIVE with proper tagging
 - ✅ **SQL Server**: `sql-eshop-prototype-eastus2.database.windows.net` - RUNNING with Azure firewall
 - ✅ **SQL Database**: `CatalogDb` (S2 Standard, 50 DTUs, 250GB) - ONLINE
-- ✅ **Key Vault**: `kv-eshop-proto-eus2.vault.azure.net` - ACTIVE with RBAC enabled
+- ✅ **Key Vault**: `kv-eshop-prototype.vault.azure.net` - ACTIVE with RBAC enabled
 - ✅ **App Service Plan**: `asp-eshop-prototype-eastus2` (S1 Standard Windows) - READY
 - ✅ **App Service**: `app-eshop-prototype-eastus2.azurewebsites.net` - RESPONDING (HTTP 200)
 - ✅ **Managed Identity**: Principal ID `fbd53bd9-caac-4260-a995-6251c06f1dd9` - CONFIGURED
@@ -124,6 +124,6 @@
 ### 🌐 LIVE Access Points:
 - **App Service**: https://app-eshop-prototype-eastus2.azurewebsites.net (RESPONDING)
 - **SQL Server**: sql-eshop-prototype-eastus2.database.windows.net (ACCESSIBLE)
-- **Key Vault**: https://kv-eshop-proto-eus2.vault.azure.net/ (OPERATIONAL)
+- **Key Vault**: https://kv-eshop-prototype.vault.azure.net/ (OPERATIONAL)
 
 **Status**: Infrastructure is LIVE and ready for immediate application deployment!

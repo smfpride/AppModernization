@@ -1,4 +1,7 @@
-# Manual Testing Guide for Story 6: Azure Key Vault Integration
+# Manual Testing Guide 2. **Verify Key Vault exists:**
+   ```bash
+   az keyvault show --name kv-eshop-prototype
+   ```Story 6: Azure Key Vault Integration
 
 This guide provides step-by-step instructions for manually testing the Azure Key Vault integration.
 
@@ -23,19 +26,19 @@ This guide provides step-by-step instructions for manually testing the Azure Key
 
 3. Verify Key Vault exists:
    ```bash
-   az keyvault show --name kv-eshop-prototype-eastus2
+   az keyvault show --name kv-eshop-prototype
    ```
    Expected: Should display Key Vault details
 
 4. List secrets in Key Vault:
    ```bash
-   az keyvault secret list --vault-name kv-eshop-prototype-eastus2 --query "[].name"
+   az keyvault secret list --vault-name kv-eshop-prototype --query "[].name"
    ```
    Expected: Should show at least `CatalogDbConnectionString`
 
 5. Verify secret value (redacted):
    ```bash
-   az keyvault secret show --vault-name kv-eshop-prototype-eastus2 --name CatalogDbConnectionString --query "value"
+   az keyvault secret show --vault-name kv-eshop-prototype --name CatalogDbConnectionString --query "value"
    ```
    Expected: Should display a SQL connection string
 
@@ -54,12 +57,12 @@ This guide provides step-by-step instructions for manually testing the Azure Key
    
    **PowerShell:**
    ```powershell
-   $env:KEYVAULT_ENDPOINT = "https://kv-eshop-prototype-eastus2.vault.azure.net/"
+   $env:KEYVAULT_ENDPOINT = "https://kv-eshop-prototype.vault.azure.net/"
    ```
    
    **Bash:**
    ```bash
-   export KEYVAULT_ENDPOINT="https://kv-eshop-prototype-eastus2.vault.azure.net/"
+   export KEYVAULT_ENDPOINT="https://kv-eshop-prototype.vault.azure.net/"
    ```
 
 3. Run the test script:
@@ -89,7 +92,7 @@ This guide provides step-by-step instructions for manually testing the Azure Key
 
 3. Look for these log entries:
    ```
-   INFO - Initializing Key Vault integration with endpoint: https://kv-eshop-prototype-eastus2.vault.azure.net/
+   INFO - Initializing Key Vault integration with endpoint: https://kv-eshop-prototype.vault.azure.net/
    INFO - Key Vault client initialized successfully
    INFO - Application starting with configuration: Environment: Local, ConnectionString: Configured, AppInsights: Configured
    ```
@@ -185,7 +188,7 @@ This guide provides step-by-step instructions for manually testing the Azure Key
 3. Verify Key Vault access policy:
    ```bash
    az keyvault show \
-     --name kv-eshop-prototype-eastus2 \
+     --name kv-eshop-prototype \
      --query "properties.accessPolicies[?objectId=='<principal-id>'].permissions"
    ```
    Expected: Should show get and list permissions for secrets
@@ -283,11 +286,11 @@ az account show
 **Solution**:
 ```bash
 # Check your access
-az keyvault secret list --vault-name kv-eshop-prototype-eastus2
+az keyvault secret list --vault-name kv-eshop-prototype
 
 # If access denied, have admin grant permissions
 az keyvault set-policy \
-  --name kv-eshop-prototype-eastus2 \
+  --name kv-eshop-prototype \
   --upn your-email@company.com \
   --secret-permissions get list
 ```
@@ -315,7 +318,7 @@ az keyvault set-policy \
 
 2. Verify Key Vault access policy includes the Managed Identity:
    ```bash
-   az keyvault show --name kv-eshop-prototype-eastus2 --query "properties.accessPolicies"
+   az keyvault show --name kv-eshop-prototype --query "properties.accessPolicies"
    ```
 
 3. Check App Service logs for authentication errors

@@ -13,7 +13,7 @@ Azure Subscription
 └── Resource Group: rg-eshop-prototype-eastus2
     ├── SQL Server: sql-eshop-prototype-eastus2.database.windows.net
     │   └── Database: CatalogDb (S2 Standard tier)
-    ├── Key Vault: kv-eshop-prototype-eastus2.vault.azure.net
+    ├── Key Vault: kv-eshop-prototype.vault.azure.net
     ├── App Service Plan: asp-eshop-prototype-eastus2 (S1 Standard)
     └── App Service: app-eshop-prototype-eastus2.azurewebsites.net
         └── System Managed Identity (enabled)
@@ -97,7 +97,7 @@ az deployment group create \
   - Threat detection (optional)
 
 ### 3. Key Vault
-- **Name**: `kv-eshop-prototype-eastus2`
+- **Name**: `kv-eshop-prototype`
 - **SKU**: Standard
 - **Access Policies**:
   - App Service Managed Identity: Get, List secrets
@@ -239,7 +239,7 @@ az group show --name rg-eshop-prototype-eastus2
 az sql db show-connection-string --server sql-eshop-prototype-eastus2 --name CatalogDb
 
 # Verify Key Vault access
-az keyvault secret show --vault-name kv-eshop-prototype-eastus2 --name CatalogDbConnectionString
+az keyvault secret show --vault-name kv-eshop-prototype --name CatalogDbConnectionString
 
 # Check App Service status
 az webapp show --resource-group rg-eshop-prototype-eastus2 --name app-eshop-prototype-eastus2
@@ -256,7 +256,7 @@ az webapp show --resource-group rg-eshop-prototype-eastus2 --name app-eshop-prot
 - Database: `CatalogDb` with S2 Standard tier (50 DTUs)
 
 ✅ **Azure Key Vault created with appropriate access policies**
-- Name: `kv-eshop-prototype-eastus2`
+- Name: `kv-eshop-prototype`
 - Managed Identity access configured
 - Connection string stored securely
 

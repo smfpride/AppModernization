@@ -29,6 +29,7 @@
     <TargetFrameworkProfile />
     <Use64BitIISExpress />
     <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <RuntimeIdentifiers>win</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

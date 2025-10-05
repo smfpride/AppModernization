@@ -96,15 +96,15 @@ namespace eShopLegacyMVC.Models.Infrastructure
                 throw new InvalidOperationException("Key Vault provider has not been initialized. Call Initialize() first.");
             }
 
+            if (string.IsNullOrEmpty(secretName))
+            {
+                throw new ArgumentException("Secret name cannot be null or empty", nameof(secretName));
+            }
+
             if (!_isEnabled)
             {
                 _log.Debug($"Key Vault disabled, cannot retrieve secret: {secretName}");
                 return null;
-            }
-
-            if (string.IsNullOrEmpty(secretName))
-            {
-                throw new ArgumentException("Secret name cannot be null or empty", nameof(secretName));
             }
 
             try
@@ -145,5 +145,22 @@ namespace eShopLegacyMVC.Models.Infrastructure
             secretValue = GetSecret(secretName);
             return !string.IsNullOrEmpty(secretValue);
         }
+
+#if DEBUG
+        /// <summary>
+        /// Resets the Key Vault provider state for testing purposes.
+        /// This method is only available in DEBUG builds.
+        /// </summary>
+        public static void ResetForTesting()
+        {
+            lock (_lock)
+            {
+                _client = null;
+                _isInitialized = false;
+                _isEnabled = false;
+                _log.Debug("Key Vault provider state reset for testing");
+            }
+        }
+#endif
     }
 }

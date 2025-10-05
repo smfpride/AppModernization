@@ -3,7 +3,7 @@
 
 param(
     [Parameter(Mandatory=$false)]
-    [string]$KeyVaultName = "kv-eshop-prototype-eastus2"
+    [string]$KeyVaultName = "kv-eshop-prototype"
 )
 
 Write-Host "🔐 Testing Azure Key Vault Integration" -ForegroundColor Green

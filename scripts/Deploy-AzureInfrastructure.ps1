@@ -18,7 +18,7 @@ param(
     [string]$DatabaseName = "CatalogDb",
     
     [Parameter(Mandatory=$false)]
-    [string]$KeyVaultName = "kv-eshop-prototype-eastus2",
+    [string]$KeyVaultName = "kv-eshop-prototype",
     
     [Parameter(Mandatory=$false)]
     [string]$AppServicePlanName = "asp-eshop-prototype-eastus2",

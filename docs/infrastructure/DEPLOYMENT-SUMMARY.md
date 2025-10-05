@@ -13,7 +13,7 @@
 | **Resource Group** | `rg-eshop-prototype-eastus2` | ✅ Created | East US 2, properly tagged |
 | **SQL Server** | `sql-eshop-prototype-eastus2` | ✅ Created | v12.0, TLS 1.2 min, Azure firewall enabled |
 | **SQL Database** | `CatalogDb` | ✅ Created | S2 Standard (50 DTUs, 250GB) |
-| **Key Vault** | `kv-eshop-proto-eus2` | ✅ Created | Standard tier, RBAC enabled, soft delete |
+| **Key Vault** | `kv-eshop-prototype` | ✅ Created | Standard tier, RBAC enabled, soft delete |
 | **App Service Plan** | `asp-eshop-prototype-eastus2` | ✅ Created | S1 Standard, Windows platform |
 | **App Service** | `app-eshop-prototype-eastus2` | ✅ Created | Managed Identity enabled |
 
@@ -30,7 +30,7 @@
 
 - **App Service URL**: https://app-eshop-prototype-eastus2.azurewebsites.net
 - **SQL Server FQDN**: sql-eshop-prototype-eastus2.database.windows.net
-- **Key Vault URI**: https://kv-eshop-proto-eus2.vault.azure.net/
+- **Key Vault URI**: https://kv-eshop-prototype.vault.azure.net/
 - **Resource Group**: /subscriptions/15ed6030-cc0e-4b95-9b8d-8d60f6b02b82/resourceGroups/rg-eshop-prototype-eastus2
 
 ## 💰 Cost Estimate

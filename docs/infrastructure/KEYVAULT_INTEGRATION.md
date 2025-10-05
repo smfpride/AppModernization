@@ -38,8 +38,8 @@ The Key Vault should already be created by the infrastructure deployment script.
 
 ```bash
 az keyvault create \
-  --name kv-eshop-prototype-eastus2 \
-  --resource-group rg-eshop-prototype-eastus2 \
+  --name kv-eshop-prototype \
+  --resource-group rg-eshop-prototype \
   --location eastus2
 ```
 
@@ -50,13 +50,13 @@ Store your connection strings and secrets:
 ```bash
 # Database connection string
 az keyvault secret set \
-  --vault-name kv-eshop-prototype-eastus2 \
+  --vault-name kv-eshop-prototype \
   --name "CatalogDbConnectionString" \
   --value "Server=tcp:your-server.database.windows.net,1433;Initial Catalog=CatalogDb;..."
 
 # Application Insights instrumentation key (optional)
 az keyvault secret set \
-  --vault-name kv-eshop-prototype-eastus2 \
+  --vault-name kv-eshop-prototype \
   --name "ApplicationInsights--InstrumentationKey" \
   --value "your-instrumentation-key"
 ```
@@ -82,7 +82,7 @@ PRINCIPAL_ID=$(az webapp identity show \
 
 # Grant Key Vault access
 az keyvault set-policy \
-  --name kv-eshop-prototype-eastus2 \
+  --name kv-eshop-prototype \
   --object-id $PRINCIPAL_ID \
   --secret-permissions get list
 ```
@@ -95,7 +95,7 @@ Set the Key Vault endpoint in your App Service:
 az webapp config appsettings set \
   --resource-group rg-eshop-prototype-eastus2 \
   --name app-eshop-prototype-eastus2 \
-  --settings KEYVAULT_ENDPOINT="https://kv-eshop-prototype-eastus2.vault.azure.net/"
+  --settings KEYVAULT_ENDPOINT="https://kv-eshop-prototype.vault.azure.net/"
 ```
 
 ## Local Development
@@ -112,12 +112,12 @@ Set the Key Vault endpoint as an environment variable:
 
 **PowerShell:**
 ```powershell
-$env:KEYVAULT_ENDPOINT="https://kv-eshop-prototype-eastus2.vault.azure.net/"
+$env:KEYVAULT_ENDPOINT="https://kv-eshop-prototype.vault.azure.net/"
 ```
 
 **Bash:**
 ```bash
-export KEYVAULT_ENDPOINT="https://kv-eshop-prototype-eastus2.vault.azure.net/"
+export KEYVAULT_ENDPOINT="https://kv-eshop-prototype.vault.azure.net/"
 ```
 
 ### Testing Local Development
@@ -212,7 +212,7 @@ The application looks for secrets using these naming patterns:
 
 **Local Development:**
 - Run `az login` to authenticate
-- Verify you have access: `az keyvault secret list --vault-name kv-eshop-prototype-eastus2`
+- Verify you have access: `az keyvault secret list --vault-name kv-eshop-prototype`
 
 **Azure App Service:**
 - Verify Managed Identity is enabled
@@ -224,7 +224,7 @@ The application looks for secrets using these naming patterns:
 **Symptom**: Application logs "Secret not found in Key Vault"
 
 **Solution:**
-- Verify secret exists: `az keyvault secret show --vault-name kv-eshop-prototype-eastus2 --name SecretName`
+- Verify secret exists: `az keyvault secret show --vault-name kv-eshop-prototype --name SecretName`
 - Check secret name matches the expected naming convention
 - Verify Key Vault permissions include "get" permission
 

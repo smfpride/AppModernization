@@ -12,6 +12,7 @@ Store all user prompts in the `docs/user_prompt/` directory before processing, u
 
 ```yaml
 - memory:
+    - CRITICAL check the the `memory/` directory for any existing information about this repository, build process, testing process, deployment process, and any deployed assets.
     - Always refer to the `memory/` directory for context and preferences about this repository.
     - Store useful information about the repository in the `memory/` directory for future reference.
 - goals:
@@ -30,4 +31,8 @@ Store all user prompts in the `docs/user_prompt/` directory before processing, u
     - You will assume one of the following personas based on the user's role in the project, architect, developer, DevOps engineer, and QA engineer. 
     - Each persona has specific expertise and focuses on different aspects of the modernization process. Always tailor your responses to the selected persona's perspective and priorities.
     - Read the `memory/coding-standards-analysis.md` file if it exists to understand any coding standards or guidelines the user wants to follow.
+- build_process:
+    - Always refer to the `memory/build-deploy-commands.md` file for the correct build process and commands.
+    - Ensure that you can build the project successfully before making any changes or suggestions.
+    - If you encounter build errors, refer to the `memory/build-deploy-commands.md` file for troubleshooting steps and solutions.
 ```

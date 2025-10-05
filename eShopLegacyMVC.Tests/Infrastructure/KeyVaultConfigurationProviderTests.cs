@@ -12,6 +12,11 @@ namespace eShopLegacyMVC.Tests.Infrastructure
         {
             // Clear environment variables for clean tests
             Environment.SetEnvironmentVariable("KEYVAULT_ENDPOINT", null);
+            
+            // Reset the provider state for each test
+#if DEBUG
+            KeyVaultConfigurationProvider.ResetForTesting();
+#endif
         }
 
         [TestCleanup]
@@ -167,10 +172,9 @@ namespace eShopLegacyMVC.Tests.Infrastructure
 
         /// <summary>
         /// Integration test that requires actual Azure Key Vault access.
-        /// This test is marked as Ignore by default and should be run manually when Azure is configured.
+        /// This test requires the KEYVAULT_ENDPOINT environment variable to be set.
         /// </summary>
         [TestMethod]
-        [Ignore]
         public void Integration_GetSecret_WithValidKeyVault_ReturnsSecret()
         {
             // Arrange
@@ -192,10 +196,9 @@ namespace eShopLegacyMVC.Tests.Infrastructure
 
         /// <summary>
         /// Integration test for TryGetSecret with actual Azure Key Vault.
-        /// This test is marked as Ignore by default and should be run manually when Azure is configured.
+        /// This test requires the KEYVAULT_ENDPOINT environment variable to be set.
         /// </summary>
         [TestMethod]
-        [Ignore]
         public void Integration_TryGetSecret_WithValidKeyVault_ReturnsTrue()
         {
             // Arrange
@@ -218,10 +221,9 @@ namespace eShopLegacyMVC.Tests.Infrastructure
 
         /// <summary>
         /// Integration test for non-existent secret with actual Azure Key Vault.
-        /// This test is marked as Ignore by default and should be run manually when Azure is configured.
+        /// This test requires the KEYVAULT_ENDPOINT environment variable to be set.
         /// </summary>
         [TestMethod]
-        [Ignore]
         public void Integration_GetSecret_WithNonExistentSecret_ReturnsNull()
         {
             // Arrange

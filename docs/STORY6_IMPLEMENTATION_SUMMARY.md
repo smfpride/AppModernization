@@ -216,12 +216,12 @@ Secrets retrieved and cached
 
 **For Azure App Service:**
 ```
-KEYVAULT_ENDPOINT=https://kv-eshop-prototype-eastus2.vault.azure.net/
+KEYVAULT_ENDPOINT=https://kv-eshop-prototype.vault.azure.net/
 ```
 
 **For Local Development:**
 ```
-KEYVAULT_ENDPOINT=https://kv-eshop-prototype-eastus2.vault.azure.net/
+KEYVAULT_ENDPOINT=https://kv-eshop-prototype.vault.azure.net/
 ```
 Plus Azure CLI authentication: `az login`
 

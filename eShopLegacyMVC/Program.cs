@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 using Azure.Identity;
+using Microsoft.AspNetCore.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,8 +36,12 @@ builder.Services.AddControllersWithViews();
 var useMockData = builder.Configuration.GetValue<bool>("CatalogSettings:UseMockData", false);
 if (!useMockData)
 {
-    var connectionString = builder.Configuration.GetConnectionString("CatalogDBContext") 
-        ?? "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Microsoft.eShopOnContainers.Services.CatalogDb;Integrated Security=True;MultipleActiveResultSets=True;";
+    var connectionString = builder.Configuration.GetConnectionString("CatalogDBContext");
+    
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        throw new InvalidOperationException("Database connection string 'CatalogDBContext' not found. Please check Key Vault configuration.");
+    }
     
     builder.Services.AddDbContext<CatalogDBContext>(options =>
         options.UseSqlServer(connectionString));
@@ -54,6 +59,9 @@ else
 
 builder.Services.AddSingleton<CatalogItemHiLoGenerator>();
 
+// Add Blob Storage Service
+builder.Services.AddScoped<IBlobStorageService, BlobStorageService>();
+
 // Add Application Insights
 builder.Services.AddApplicationInsightsTelemetry();
 
@@ -65,6 +73,9 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+// Add health checks for container monitoring
+builder.Services.AddHealthChecks();
 
 var app = builder.Build();
 
@@ -79,6 +90,9 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseSession();
 
+// Add health check endpoint for container monitoring
+app.MapHealthChecks("/health");
+
 // Configure routes
 app.MapControllerRoute(
     name: "GetPicRoute",
@@ -89,31 +103,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Catalog}/{action=Index}/{id?}");
 
-// Initialize database if needed
-if (!useMockData)
-{
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        try
-        {
-            var context = services.GetRequiredService<CatalogDBContext>();
-            // Ensure database is created and migrations are applied
-            context.Database.Migrate();
-            
-            // Seed data if needed
-            if (!context.CatalogItems.Any())
-            {
-                var initializer = new CatalogDBInitializer();
-                initializer.SeedAsync(context).Wait();
-            }
-        }
-        catch (Exception ex)
-        {
-            var logger = services.GetRequiredService<ILogger<Program>>();
-            logger.LogError(ex, "An error occurred while migrating or seeding the database.");
-        }
-    }
-}
+// Database is already migrated and seeded from Story 3
+// No need to run migrations on startup
+// Images are already uploaded to blob storage
 
 app.Run();

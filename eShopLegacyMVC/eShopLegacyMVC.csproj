@@ -6,6 +6,8 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <RootNamespace>eShopLegacyMVC</RootNamespace>
     <AssemblyName>eShopLegacyMVC</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +23,8 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="8.0.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks" Version="8.0.10" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.22.1" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,7 @@
 using eShopLegacyMVC.Services;
 using Microsoft.Extensions.Logging;
-using System.IO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Hosting;
+using System.Threading.Tasks;
 
 namespace eShopLegacyMVC.Controllers
 {
@@ -10,23 +9,27 @@ namespace eShopLegacyMVC.Controllers
     {
         private readonly ILogger<PicController> _logger;
         private readonly ICatalogService _service;
-        private readonly IWebHostEnvironment _environment;
+        private readonly IBlobStorageService _blobStorageService;
 
         public const string GetPicRouteName = "GetPicRouteTemplate";
 
-        public PicController(ICatalogService service, ILogger<PicController> logger, IWebHostEnvironment environment)
+        public PicController(ICatalogService service, ILogger<PicController> logger, IBlobStorageService blobStorageService)
         {
             _service = service;
             _logger = logger;
-            _environment = environment;
+            _blobStorageService = blobStorageService;
         }
 
-        // GET: Pic/5.png
+        /// <summary>
+        /// Serves product images from Azure Blob Storage by redirecting to blob URLs
+        /// </summary>
+        /// <param name="catalogItemId">The catalog item ID</param>
+        /// <returns>Redirect to Azure Blob Storage URL or NotFound if image doesn't exist</returns>
         [HttpGet]
         [Route("items/{catalogItemId:int}/pic", Name = GetPicRouteName)]
-        public IActionResult Index(int catalogItemId)
+        public async Task<IActionResult> Index(int catalogItemId)
         {
-            _logger.LogInformation("Now loading... /items/Index?{CatalogItemId}/pic", catalogItemId);
+            _logger.LogInformation("Requesting product image for catalog item {CatalogItemId}", catalogItemId);
 
             if (catalogItemId <= 0)
             {
@@ -37,22 +40,25 @@ namespace eShopLegacyMVC.Controllers
 
             if (item != null)
             {
-                var webRoot = Path.Combine(_environment.WebRootPath, "Pics");
-                var path = Path.Combine(webRoot, item.PictureFileName);
-
-                if (!System.IO.File.Exists(path))
+                // Get the blob storage URL for the product image
+                var blobUrl = await _blobStorageService.GetImageUrlAsync(item.PictureFileName);
+                if (!string.IsNullOrEmpty(blobUrl))
                 {
-                    return NotFound();
+                    // Verify the image exists in blob storage before redirecting
+                    var imageExists = await _blobStorageService.ImageExistsAsync(item.PictureFileName);
+                    if (imageExists)
+                    {
+                        // Redirect client to Azure Blob Storage URL
+                        return Redirect(blobUrl);
+                    }
                 }
 
-                string imageFileExtension = Path.GetExtension(item.PictureFileName);
-                string mimetype = GetImageMimeTypeFromImageFileExtension(imageFileExtension);
-
-                var buffer = System.IO.File.ReadAllBytes(path);
-
-                return File(buffer, mimetype);
+                // Image not found in blob storage
+                _logger.LogWarning("Product image {PictureFileName} not found in blob storage for item {CatalogItemId}", item.PictureFileName, catalogItemId);
+                return NotFound();
             }
 
+            // Catalog item not found
             return NotFound();
         }
 

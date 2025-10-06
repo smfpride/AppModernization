@@ -4,14 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Catalog manager (MVC)</title>
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/Content/Site.css" />
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Site.css" />
 </head>
 <body>
     <header class="navbar navbar-light navbar-static-top">
         <div class="esh-header-brand">
             <a href="@Url.Action("index", "catalog")">
-                <img src="~/Images/brand.png" />
+                <img src="~/images/brand.png" />
             </a>
         </div>
     </header>
@@ -27,10 +27,10 @@
         <div class="container">
             <article class="row">
                 <section class="col-sm-6">
-                    <img class="esh-app-footer-brand" src="~/Images/brand_dark.png" />
+                    <img class="esh-app-footer-brand" src="~/images/brand_dark.png" />
                 </section>
                 <section class="col-sm-6">
-                    <img class="esh-app-footer-text hidden-xs" src="~/Images/main_footer_text.png" width="335" height="26" alt="footer text image" />
+                    <img class="esh-app-footer-text hidden-xs" src="~/images/main_footer_text.png" width="335" height="26" alt="footer text image" />
                     <br />
                     <small>@Environment.MachineName, @DateTime.Now</small>
                 </section>
@@ -39,8 +39,8 @@
         </div>
     </footer>
 
-    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("scripts", required: false)
 </body>
 </html>

@@ -1,53 +1,73 @@
-# .dockerignore for eShopLegacyMVC .NET Framework Application
+# .dockerignore for eShopLegacyMVC .NET 8 Application
 
-# Build outputs
-bin/
-obj/
+# .NET Core build outputs
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+
+# Build artifacts
 *.dll
 *.pdb
 *.exe
+**/publish/
 
-# NuGet packages (if using package restore)
-packages/
+# NuGet packages (restored during docker build)
+**/packages/
+**/.nuget/
 
-# Visual Studio files
-.vs/
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+# Test results
+**/TestResults/
+**/*.trx
 
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-build/
-bld/
-[Bb]in/
-[Oo]bj/
+# Development files
+**/.env
+**/.env.local
+**/.env.development
+**/.env.production
 
-# MSTest test results
-TestResults/
+# IDE and editor files
+**/.vs/
+**/.vscode/
+**/*.suo
+**/*.user
+**/*.userosscache
+**/*.sln.docstates
 
-# Visual Studio profiler
-*.psess
-*.vsp
-*.vspx
-*.sap
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 
-# TFS 2012 Local Workspace
-$tf/
+# Azure and deployment files (exclude from container)
+**/azure-pipelines.yml
+**/Dockerfile*
+**/.dockerignore
+**/docker-compose*
 
-# Guidance Automation Toolkit
-*.gpState
+# Logs and temporary files
+**/logs/
+**/temp/
+**/*.log
+**/*.tmp
 
-# ReSharper
-_ReSharper*/
-*.[Rr]e[Ss]harper
-*.DotSettings.user
+# Git files
+**/.git/
+**/.gitignore
+**/.gitattributes
+
+# Documentation (unless needed in container)
+**/README.md
+**/docs/
+
+# Security and sensitive files
+**/*.pfx
+**/*.p12
+**/secrets.json
 
 # JustCode
 .jc/
@@ -167,3 +187,7 @@ FakesAssemblies/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Cleanup artifacts
+app-logs*/
+**/upload-images*.ps1
